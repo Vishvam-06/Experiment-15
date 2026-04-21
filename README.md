@@ -1,28 +1,45 @@
 # Experiment-15
 
 ## Aim
-To perform advanced data preprocessing techniques, specifically focusing on Data Normalization (feature scaling) and Data Encoding (converting categorical data to numerical data) using the Python pandas and scikit-learn libraries.
+To explore and apply essential data transformation techniques, specifically data normalization and categorical data encoding, using the pandas and scikit-learn libraries in Python.
 
 ## Theory
-Real-world datasets often contain features with highly varying magnitudes, ranges, and data types (both numerical and text). To feed this data into machine learning algorithms effectively, it must be scaled and converted into a standardized numerical format. This experiment covers two primary preprocessing phases:
+Data preprocessing is a crucial step in preparing datasets for machine learning. This experiment focuses on two primary areas: scaling numerical data and converting categorical text into a machine-readable format.
 
-1. Data Normalization (Feature Scaling)
-Normalization adjusts the numerical values of different columns to a common scale without distorting differences in the ranges of values.
+1. Data Normalization (Scaling)
+Normalization adjusts the values of numerical columns in a dataset to a common scale without distorting differences in the ranges of values. This is vital for algorithms sensitive to the scale of input features (e.g., K-Nearest Neighbors, Gradient Descent based algorithms).
+Min-Max Normalization: Rescales data to a fixed range, typically 0 to 1.
+Formula: (X - X_min) / (X_max - X_min)
+Z-score Normalization (Standardization): Transforms data to have a mean of 0 and a standard deviation of 1. It handles outliers better than Min-Max scaling.
+Formula: (X - mean) / standard_deviation
+Decimal Scaling: Moves the decimal point of values based on the maximum absolute value in the feature, bringing values between -1 and 1 (or 0 and 1 for positive numbers).
 
-Min-Max Normalization: Rescales the data so that all values fall within a specific range, typically [0, 1]. It is calculated as (x - min) / (max - min).
+2. Data Encoding (Type Conversion)
+Machine learning models generally require numerical input. Encoding converts categorical data (strings/text) into numerical formats.
+Label Encoding: Assigns a unique integer to each category in a column. Useful for ordinal data (where order matters).
+One-Hot Encoding: Creates a new binary (0 or 1) column for each category. Ideal for nominal data (where no inherent order exists) to avoid the model misinterpreting integer values as having rank.
+Dummy Encoding: Similar to One-Hot Encoding but drops one of the newly created columns (using drop_first=True) to prevent the "dummy variable trap" (perfect multicollinearity), which can cause issues in regression models.
 
-Z-Score Normalization (Standardization): Centers the data around a mean of 0 with a standard deviation of 1. It handles outliers better than Min-Max and is calculated as (x - mean) / standard_deviation.
+Topics Covered in the Notebook
 
-Decimal Scaling: Moves the decimal point of values of feature x. The number of decimal points moved depends on the maximum absolute value of x.
+This notebook demonstrates these concepts using both synthetic datasets created via Python dictionaries and a loaded CSV dataset (amazon_products_dataset_Expt-14.csv).
+Scaling implementations:
 
-2. Data Encoding
-Machine learning models require input and output variables to be numeric. Encoding is the process of converting categorical (text) data into numerical formats.
+Min-Max normalization on Price columns.
 
-Label Encoding (LabelEncoder): Converts each category value into a unique integer (e.g., City names like 'Pune' and 'Mumbai' become 4 and 3). Useful for ordinal data but can imply false relationships in nominal data.
+Z-score normalization on Units_Sold columns using .mean() and .std().
 
-One-Hot Encoding (pd.get_dummies): Creates new binary (True/False or 1/0) columns for each unique category in the original column. This prevents the model from assuming a natural ordering between categories.
+Simultaneous normalization of multiple columns.
 
-Dummy Encoding (drop_first=True): Similar to One-Hot Encoding but drops the first resulting column to avoid multicollinearity (the "dummy variable trap"), resulting in N-1 binary columns for N categories.
+Decimal scaling on Price and Reviews.
+
+Encoding implementations:
+
+Applying LabelEncoder to categorical features like Customer_Gender, City, and Product_Name.
+
+Performing One-Hot Encoding using pd.get_dummies().
+
+Implementing Dummy Encoding with drop_first=True to address multicollinearity.
 
 ## Conclusion
-In this experiment, data normalization and categorical data encoding were successfully implemented using pandas and sklearn.preprocessing. Numerical features such as Price, Units Sold, and Discount were effectively scaled using Min-Max, Z-score, and Decimal scaling methodologies to ensure uniform feature magnitude.
+Through this experiment, practical techniques for standardizing numerical features and transforming categorical variables were successfully implemented. Min-Max and Z-score normalization ensured that features with varying scales contributed equally to potential model training. Furthermore, techniques like Label Encoding and One-Hot Encoding effectively converted text-based categories into numerical representations. Mastering these preprocessing steps is fundamental to building robust and accurate machine learning pipelines.
